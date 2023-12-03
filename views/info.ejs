@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <% for (let i of details) { %>
+        <div>
+            <div>
+                <label for="name">Name:</label>
+                <input class="fixed_detail" type="text" disabled value="<%= i.name %>">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input class="fixed_detail" type="text" disabled value="<%= i.email %>">
+            </div>
+            <div>
+                <label for="section">Section:</label>
+                <input class="fixed_detail" type="text" disabled value="<%= i.section %>">
+            </div>
+            <div>
+                <label for="section">Course:</label>
+                <input class="fixed_detail" type="text" disabled value="<%= i.Course %>">
+            </div>
+            <div>
+                <label for="dob">DOB:</label>
+                <input class="fixed_detail" type="text" disabled value="<%= i.DOB %>">
+            </div>
+            <div>
+                <label for="year">Year:</label>
+                <input class="fixed_detail" type="text" disabled value="<%= i.year %>">
+            </div>
+
+
+            <div>
+                <label for="phone">Phone:</label>
+                <input class="detail_input" type="text" disabled value="<%= i.phone%>">
+            </div>
+            <div>
+                <label for="gender">Gender: </label>
+                <input class="detail_input" type="text" disabled value="<%= i.gender %>">
+
+            </div>
+            <div>
+                <label for="father_name">Father's name:</label>
+                <input class="detail_input" type="text" disabled value="<%= i.father_name %>">
+            </div>
+            <div>
+                <label for="mother_name">Mother's name:</label>
+                <input class="detail_input" type="text" disabled value="<%= i.mother_name %>">
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <input class="detail_input" type="text" disabled value="<%= i.address %>">
+            </div>
+
+            <button id="edit_details_btn">Edit</button>
+            <button id="cancel_details_btn">Cancel</button>
+            <button id="save_details_btn">Save</button>
+
+        </div>
+
+
+        <% } %>
+            
+            <script id="stud" src="/stud.js"></script>
+</body>
+
+</html>

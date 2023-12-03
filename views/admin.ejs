@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    th,
+    td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+
+    td {
+        padding: 12px;
+    }
+</style>
+
+<body>
+    <h1>Admin</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>ML</th>
+            <th>OOSD</th>
+            <th>DBMS</th>
+            <th>DAA</th>
+            <th>WT</th>
+        </tr>
+
+
+        <% for(let student of students[0]) { %>
+            <tr>
+
+                <td class="sid">
+                    <%= student.sid %>
+
+                </td>
+                <td>
+                    <%= student.name %>
+                </td>
+
+                <td>
+                    <input class="is_present" name="ml" type="checkbox">
+                </td>
+                <td>
+                    <input class="is_present" name="oosd" type="checkbox">
+                </td>
+                <td>
+                    <input class="is_present" name="dbms" type="checkbox">
+                </td>
+                <td>
+                    <input class="is_present" name="daa" type="checkbox">
+                </td>
+                <td>
+                    <input class="is_present" name="wt" type="checkbox">
+                </td>
+            </tr>
+            <% } %>
+
+    </table>
+    <button onclick="window.location.reload(true)">Update</button>
+    <button type="submit" id="submit-btn" disabled="true">Submit</button>
+    <button type="" id="save-btn">Save</button>
+    <button type="reset" id="reset-btn">Reset</button>
+
+    <br><br><br><br>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>Attendance</th>
+            <th>ML</th>
+            <th>OOSD</th>
+            <th>DBMS</th>
+            <th>DAA</th>
+            <th>WT</th>
+            <% for(let att of students[1]) { %>
+        <tr>
+
+            <td>
+                <%= att.sid %>
+
+            </td>
+            <td>
+                <a href=admin/details/<%= att.sid %> id=<%=att.sid %> ><%= att.name %></a>
+            </td>
+            
+            <% if(att.attendance>100) {%>
+            <td>
+                100
+            </td>
+            <% } else { %>
+            <td>
+                <%= att.attendance %>
+            </td>
+                <% } %>
+            
+            <td>
+                <%= att.ML %>
+            </td>
+            <td>
+                <%= att.OOSD %>
+            </td>
+            <td>
+                <%= att.DBMS %>
+            </td>
+            <td>
+                <%= att.DAA %>
+            </td>
+            <td>
+                <%= att.WT %>
+            </td>
+
+        </tr>
+        <% } %>
+            </tr>
+    </table>
+
+    <script src="/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="file-input" name="photo">
+        <button type="submit">Upload</button>
+    </form>
+
+    <img src="" alt="" id="user_img" height="32">
+    <p>Student: <%=attendance[0][0].name %>
+    </p>
+    <button id="details">See details</button>
+    <h2>Your overall attendance</h2>
+    <h3>Percentage:
+        <% if(attendance[0][0].attendance>100) { %>
+            <span>100</span>
+            <% } else { %>
+                <%= attendance[0][0].attendance %>
+                    <% } %>
+    </h3>
+
+    <h2>Subject Wise attendance:</h2>
+    <div>
+        <% for(let att of attendance[1]) { %>
+            <div>
+                <div>
+                    ML <%= att.ML %>
+                </div>
+                <div>
+                    OOSD <%= att.OOSD %>
+                </div>
+                <div>
+                    DBMS <%= att.DBMS %>
+                </div>
+                <div>
+                    DAA <%= att.DAA %>
+                </div>
+                <div>
+                    WT <%= att.WT %>
+                </div>
+            </div>
+            <% } %>
+    </div>
+
+    <script src="/stud.js"></script>
+</body>
+
+</html>
