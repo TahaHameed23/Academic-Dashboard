@@ -5,50 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles/stud.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <form id="upload-form" enctype="multipart/form-data">
-        <input type="file" id="file-input" name="photo">
-        <button type="submit">Upload</button>
+
+    <nav>
+
+        <!-- <img id="user_img" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" -->
+        <!-- alt=""> -->
+
+        <button class="resources" onclick="window.location.href='/resources'"><i class="ri-file-copy-2-line"></i>
+            Resources</button>
+        <button id="details"><i class="ri-account-circle-line"></i> Details</button>
+        <i class="ri-mail-line"></i>
+    </nav>
     </form>
 
-    <img src="" alt="" id="user_img" height="32">
-    <p>Student: <%=attendance[0][0].name %>
-    </p>
-    <button id="details">See details</button>
-    <h2>Your overall attendance</h2>
-    <h3>Percentage:
-        <% if(attendance[0][0].attendance>100) { %>
-            <span>100</span>
-            <% } else { %>
-                <%= attendance[0][0].attendance %>
-                    <% } %>
-    </h3>
 
-    <h2>Subject Wise attendance:</h2>
+
+    <div class="card">
+
+        <img src="" alt="" id="user_img" height="32">
+        <h2>
+            <%=attendance[0][0].name %>
+        </h2>
+
+
+        <h3>Percentage:
+            <% if(attendance[0][0].attendance>100) { %>
+                <span>100</span>
+                <% } else { %>
+                    <%= attendance[0][0].attendance %>
+                        <% } %>
+        </h3>
+    </div>
+
+    <h2 style="text-align: center;">Classes attended:</h2>
     <div>
         <% for(let att of attendance[1]) { %>
             <div>
-                <div>
-                    ML <%= att.ML %>
+                <div class="card">
+                    <div>
+                        Machine Learning
+                    </div>
+                    <div>
+                        <%= att.ML %>/50
+                    </div>
                 </div>
-                <div>
-                    OOSD <%= att.OOSD %>
+                <div class="card">
+                    <div>
+                        Object Oriented System Design
+                    </div>
+                    <div>
+                        <%= att.OOSD %>/50
+                    </div>
                 </div>
-                <div>
-                    DBMS <%= att.DBMS %>
+                <div class="card">
+                    <div>
+                        Database Management System
+                    </div>
+                    <div>
+                        <%= att.DBMS %>/50
+                    </div>
                 </div>
-                <div>
-                    DAA <%= att.DAA %>
+                <div class="card">
+                    <div>
+                        Design and Analysis of Algorithms
+                    </div>
+                    <div>
+                        <%= att.DAA %>/50
+                    </div>
                 </div>
-                <div>
-                    WT <%= att.WT %>
+                <div class="card">
+                    <div>
+                        Web Technologies
+                    </div>
+                    <div>
+                        <%= att.WT %>/50
+                    </div>
                 </div>
             </div>
             <% } %>
     </div>
+
 
     <script src="/stud.js"></script>
 </body>

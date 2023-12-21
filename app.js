@@ -1,10 +1,14 @@
-import express from 'express';
-import { registerUser, authUser, showStudents, getAttendance, updateAttendance, showDetails, updateDetails,showDetailsAdmin } from './src/db2.js';
-import { putObject, getObjectURL } from './src/aws.js';
+import express, { response } from 'express';
+import { registerUser, authUser, showStudents, getAttendance, updateAttendance, showDetails, updateDetails, showDetailsAdmin, uploadVideoURL, getVideoURL, getVideoTitle } from './src/db2.js';
+import { putObject, getObjectURL, getAllObjects } from './src/aws.js';
+import youtubeThumbnail from 'youtube-thumbnail';
+import getTitle from 'youtube-title'
 import path from 'node:path';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import multer from 'multer';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const PORT = process.env.PORT || 4500;
@@ -37,12 +41,27 @@ app.get('/admin', async (req, res, next) => {
 
 })
 
-app.post('/admin', async (req, res) => {
+app.post('/admin', upload.single("files"), async (req, res) => {
 
     if (req.headers.auth === "admin") {
         updateAttendance(req.body)
     }
+    if (req.headers.resources === "true") {
+        try {
+            await putObject(`resources/${req.file.originalname}`, req.file.buffer, req.file.mimetype);
+            return res.sendStatus(200);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    if (req.headers.resources === "video_link") {
+        await uploadVideoURL(req.body.video_link)
+            .then(() => {
+                res.sendStatus(200);
+            })
 
+    }
     // const response = await showStudents();
 
 
@@ -51,11 +70,12 @@ app.post('/admin', async (req, res) => {
 app.post('/student/', upload.single("files"), async (req, res) => {
 
     try {
-        await putObject(`image_${req.headers.email.split(".")[0]}_${Math.floor(new Date().getTime() / 1000) + 60 * 60}.jpeg`, req.file.buffer, req.file.mimetype);
+        await putObject(`user-upload/image_${req.headers.email.split(".")[0]}.${req.file.mimetype.split('/')[1]}`, req.file.buffer, req.file.mimetype);
         if (req.headers.haslocalimage !== "true") {
-            const imageURL = await getObjectURL(`image_${req.headers.email.split(".")[0]}_${Math.floor(new Date().getTime() / 1000) + 60 * 60}`)
+            const imageURL = await getObjectURL(`user-upload/image_${req.headers.email.split(".")[0]}.${req.file.mimetype.split('/')[1]}`)
             res.send(JSON.stringify({ imageURL: imageURL }))
         }
+
 
     }
     catch (e) {
@@ -67,7 +87,6 @@ app.post('/student/', upload.single("files"), async (req, res) => {
 
 app.get('/student', async (req, res) => {
     const attendance = await getAttendance(decodeURIComponent(req.query?.email));
-
     res.render('stud', { attendance: attendance });
 });
 
@@ -106,21 +125,54 @@ app.post('/', async (req, res) => {
 
 
 app.get("/details", async (req, res) => {
-    console.log(req.params);
     const response = await showDetails(req.query.email);
     res.render("info", { details: response })
 })
 
 app.post("/details", async (req, res) => {
-    updateDetails(req.headers.email,req.body);
+    updateDetails(req.headers.id, req.body);
     res.sendStatus(200)
 })
 
-app.get('/admin/details/:id',async (req,res)=>{
+app.get('/admin/details/:id', async (req, res) => {
     const response = await showDetailsAdmin(req.params.id);
     res.render("infoAdmin", { details: response })
 })
 
+app.get('/resources', getAllObjects, async (req, res) => {
+    const resources_name = {}
+    for (let i = 1; i < req.objs.length; i++) {
+        const value = req.objs[i].toString();
+        const response = await getObjectURL(value);
+        const name = req.objs[i].split("/")[1];
+        resources_name[name] = response;
+    }
+    const res_name = Object.keys(resources_name)
+    const res_url = Object.values(resources_name)
+
+    const thumbnail = []
+    const video_link = []
+    const video_title = []
+    const apiKey = process.env.YOUTUBE_API_KEY;
+    const video_url = await getVideoURL();
+
+    await Promise.all(video_url.map(async (url) => {
+        video_link.push(url.vd_id);
+        let video_id;
+        if (url.vd_id.includes("youtu.be")) {
+            video_id = url.vd_id.split("/")[3].split("?")[0];
+        } else {
+            video_id = url.vd_id.split("=")[1];
+        }
+        const thumbnail_url = youtubeThumbnail(`https://www.youtube.com/watch?v=${video_id}`);
+        thumbnail.push(thumbnail_url.medium.url);
+        const title = await getTitle(video_id, apiKey)
+        video_title.push(title)
+    }));
+
+    res.render('resources', { resources: res_name, url: res_url, video_link: video_link, thumbnail: thumbnail, title: video_title })
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server running on port http:localhost:${PORT}`);

@@ -107,19 +107,19 @@ export async function updateAttendance(data) {
 }
 
 async function updateAttendancePercenrage() {
-    let attendancePercenrage;
+    let attendancePercentage;
     let totalAttentedClasses;
 
     const noOfAttentedClasses = await db.promise().query("SELECT SID,ML,OOSD,DBMS,DAA,WT FROM subject_att")
     for (let i = 0; i < noOfAttentedClasses[0].length; i++) {
         totalAttentedClasses = noOfAttentedClasses[0][i].ML + noOfAttentedClasses[0][i].OOSD + noOfAttentedClasses[0][i].DBMS + noOfAttentedClasses[0][i].DAA + noOfAttentedClasses[0][i].WT
 
-        attendancePercenrage = (totalAttentedClasses / (noOfClasses.total_classes + 5)) * 100
+        attendancePercentage = ((noOfClasses.total_classes - totalAttentedClasses) / noOfClasses.total_classes) * 100
 
         if (i == noOfAttentedClasses[0].length)
-            await db.promise().query(`UPDATE students set attendance=${attendancePercenrage} WHERE SID = ?`, [i]);
+            await db.promise().query(`UPDATE students set attendance=${attendancePercentage} WHERE SID = ?`, [i]);
         else
-            await db.promise().query(`UPDATE students set attendance=${attendancePercenrage} WHERE SID = ?`, [i + 1]);
+            await db.promise().query(`UPDATE students set attendance=${attendancePercentage} WHERE SID = ?`, [i + 1]);
     }
 }
 
@@ -128,13 +128,29 @@ export async function showDetails(email) {
     return res[0];
 
 }
-export async function updateDetails(email, body) {
-    await db.promise().query(`update students set phone=?,gender=?,father_name=?,mother_name=?,address=? where email=?`, [body.detail[0], body.detail[1], body.detail[2], body.detail[3], body.detail[4], email])
+export async function updateDetails(id, body) {
+    await db.promise().query(`update students set phone=?,gender=?,father_name=?,mother_name=?,address=? where sid=?`, [body.detail[0], body.detail[1], body.detail[2], body.detail[3], body.detail[4], id])
 
 }
 
 export async function showDetailsAdmin(id) {
     const res = await db.promise().query("select name,email,phone,father_name,address,section,gender,mother_name,Course,DATE_FORMAT(DOB,'%d-%m-%Y') as DOB,year from students where sid = ?", [id]);
-    console.log(res[0]);
     return res[0];
+}
+
+export async function uploadVideoURL(url) {
+    await db.promise().query("insert into video_links values(?)", [url])
+}
+
+export async function getVideoURL() {
+    const res = await db.promise().query("select vd_id from video_links")
+    return res[0]
+}
+
+export async function getVideoTitle(videoId, apiKey) {
+    const res = await fetch("GET",
+        'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + videoId + '&key=' + apiKey
+    );
+    return res.data.items[0].snippet.title;
+
 }

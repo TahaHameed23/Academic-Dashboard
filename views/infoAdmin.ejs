@@ -6,57 +6,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        margin-bottom: 8rem;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ccc;
+        margin: auto;
+        width: 40vw;
+        margin-top: 3rem;
+        padding: 4rem;
+    }
+
+    input {
+        margin-left: 1rem;
+        justify-content: center;
+    }
+
+    input,
+    label {
+        margin: 6px;
+        padding: .8rem;
+        font-weight: bold;
+    }
+
+    label {
+        justify-self: start;
+    }
+</style>
+
 
 <body>
 
     <% for (let i of details) { %>
-        <div>
+        <div class="form-container">
             <div>
                 <label for="name">Name:</label>
-                <input class="fixed_detail" type="text"  value="<%= i.name %>">
+                <input class="fixed_detail" type="text" disabled value="<%= i.name %>">
             </div>
             <div>
                 <label for="email">Email:</label>
-                <input class="fixed_detail" type="text"  value="<%= i.email %>">
+                <input class="fixed_detail" type="text" disabled value="<%= i.email %>">
             </div>
             <div>
                 <label for="section">Section:</label>
-                <input class="fixed_detail" type="text"  value="<%= i.section %>">
+                <input class="fixed_detail" type="text" disabled value="<%= i.section %>">
             </div>
             <div>
                 <label for="section">Course:</label>
-                <input class="fixed_detail" type="text"  value="<%= i.Course %>">
+                <input class="fixed_detail" type="text" disabled value="<%= i.Course %>">
             </div>
             <div>
                 <label for="dob">DOB:</label>
-                <input class="fixed_detail" type="text"  value="<%= i.DOB %>">
+                <input class="fixed_detail" type="text" disabled value="<%= i.DOB %>">
             </div>
             <div>
                 <label for="year">Year:</label>
-                <input class="fixed_detail" type="text"  value="<%= i.year %>">
+                <input class="fixed_detail" type="text" disabled value="<%= i.year %>">
             </div>
 
 
             <div>
                 <label for="phone">Phone:</label>
-                <input class="detail_input" type="text"  value="<%= i.phone%>">
+                <input class="detail_input" type="text" disabled value="<%= i.phone%>">
             </div>
             <div>
                 <label for="gender">Gender: </label>
-                <input class="detail_input" type="text"  value="<%= i.gender %>">
+                <input class="detail_input" type="text" disabled value="<%= i.gender %>">
 
             </div>
             <div>
                 <label for="father_name">Father's name:</label>
-                <input class="detail_input" type="text"  value="<%= i.father_name %>">
+                <input class="detail_input" type="text" disabled value="<%= i.father_name %>">
             </div>
             <div>
                 <label for="mother_name">Mother's name:</label>
-                <input class="detail_input" type="text"  value="<%= i.mother_name %>">
+                <input class="detail_input" type="text" disabled value="<%= i.mother_name %>">
             </div>
             <div>
                 <label for="address">Address:</label>
-                <input class="detail_input" type="text"  value="<%= i.address %>">
+                <input class="detail_input" type="text" disabled value="<%= i.address %>">
             </div>
 
             <button id="edit_details_btn">Edit</button>
@@ -67,7 +109,7 @@
 
 
         <% } %>
-            
+
             <script id="stud" src="/admin.js"></script>
 </body>
 

@@ -6,11 +6,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        margin-bottom: 8rem;
+    }
+
+    #user_img {
+        height: 52px;
+        border-radius: 50%;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 4rem;
+    }
+
+    .details-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ccc;
+        margin: auto;
+        width: 40vw;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .details-form div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem;
+    }
+
+    .details-form div input {
+        margin-left: 1rem;
+        justify-content: center;
+    }
+
+    .fixed_detail {
+        width: 200px;
+    }
+
+    .details-form input {
+        width: 200px;
+        padding: 1rem 2rem 1rem 2rem;
+        border: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .btns {
+        margin-top: 2rem;
+    }
+
+    #edit_details_btn,
+    #cancel_details_btn,
+    #save_details_btn {
+        padding: .8rem;
+        border: none;
+    }
+</style>
 
 <body>
+    <form id="upload-form" enctype="multipart/form-data">
+        <img id="user_img" src="" alt="">
 
+        <label for="file-input"></label>
+
+        <input type="file" id="file-input" name="photo">
+        <button id="submit">Upload</button>
+    </form>
     <% for (let i of details) { %>
-        <div>
+        <div class="details-form">
             <div>
                 <label for="name">Name:</label>
                 <input class="fixed_detail" type="text" disabled value="<%= i.name %>">
@@ -59,15 +141,17 @@
                 <input class="detail_input" type="text" disabled value="<%= i.address %>">
             </div>
 
-            <button id="edit_details_btn">Edit</button>
-            <button id="cancel_details_btn">Cancel</button>
-            <button id="save_details_btn">Save</button>
+            <div class="btns">
+                <button id="edit_details_btn">Edit</button>
+                <button id="cancel_details_btn">Cancel</button>
+                <button id="save_details_btn">Save</button>
+            </div>
 
         </div>
 
 
         <% } %>
-            
+
             <script id="stud" src="/stud.js"></script>
 </body>
 

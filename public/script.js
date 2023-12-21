@@ -60,12 +60,12 @@ async function postData(url, data) {
                 "email": data.email
             }
             localStorage.setItem("email", JSON.stringify(auth));
-            const url = new URL("http://localhost:4500/student");
+            const url = new URL(window.location.host + "/student");
             url.searchParams.set("email", data.email);
             window.location.href = url.href;
         }
         else if (res.status === 203) {
-            window.location.href = "http://localhost:4500/admin";
+            window.location.href = "/admin";
             localStorage.setItem("role", data.role);
 
         }
@@ -100,13 +100,13 @@ async function authData(url, data) {
 
             }
             localStorage.setItem("role", JSON.stringify(ls));
-            const url = new URL("http://localhost:4500/student");
+            const url = new URL(window.location.protocol + window.location.host + "/student");
             url.searchParams.set("email", data.email);
-            window.location.href = url.href;
+            window.location.href = url
 
         }
         else if (res.status === 202) {
-            window.location.href = "http://localhost:4500/admin";
+            window.location.href = "/admin";
             localStorage.setItem("role", data.role);
 
         }

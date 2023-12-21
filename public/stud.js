@@ -4,19 +4,31 @@ const email = url.searchParams.get("email")
 const localImageURL = localStorage.getItem("localImageURL")
 const detail = document.getElementById("details")
 const image = document.getElementById('user_img');
+
 let imageState = false;
 
 if (url.searchParams.get("email") !== ls.email || ls.role !== "Student") {
     document.body.innerHTML = `<p>Not authorized</p>`
 }
 
-if (localImageURL) {
-    image.src = localImageURL;
-    imageState = true;
-}
 
 if (url.pathname !== '/details') {
 
+    detail.addEventListener("click", () => {
+        const url = new URL(window.location.protocol + window.location.host + "/details");
+        url.searchParams.set("email", ls.email);
+        window.location.href = url.href;
+    })
+    if (localImageURL) {
+        image.src = localImageURL;
+        imageState = true;
+    }
+
+}
+
+if (window.location.pathname == '/details') {
+    const localImageURL = localStorage.getItem("localImageURL");
+    image.src = localImageURL;
     document.getElementById('upload-form').addEventListener('submit', async function uploadForm(e) {
         e.preventDefault();
         const fileInput = document.getElementById('file-input');
@@ -37,14 +49,6 @@ if (url.pathname !== '/details') {
         image.src = imageURL.imageURL;
 
     });
-    detail.addEventListener("click", () => {
-        const url = new URL("http://localhost:4500/details");
-        url.searchParams.set("email", ls.email);
-        window.location.href = url.href;
-    })
-}
-
-if(window.location.pathname=='/details'){
     const detail_btn = document.getElementById("edit_details_btn");
     const cancel_btn = document.getElementById("cancel_details_btn");
     const save_btn = document.getElementById("save_details_btn");
