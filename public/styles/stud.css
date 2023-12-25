@@ -48,6 +48,22 @@ nav button{
     object-fit: cover;
 }
 
+
+.card-top{
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 75%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 .card{
     width: 100%;
     background-color: #fff;
@@ -83,7 +99,15 @@ nav button{
     outline: none;
     cursor: pointer;
 }
-#details{
+.details{
     color:white;
     background-color: #373737;
+}
+
+.r-hv:hover,.d-hv:hover,.n-hv:hover{
+    color: #373737;
+    background-color: #d5d5d5;
+    transition: 0.5s;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
 }

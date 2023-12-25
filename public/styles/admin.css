@@ -17,9 +17,10 @@ h1{
     font-weight: 500;
     color: #333;
     margin-bottom: 1rem;
-    text-align: center;
-    background-color: azure;
+    text-align: center; 
+    color: white;
     padding: 1rem;
+    margin-top: 12px;
 }
 h2,h3{
     font-size: 1.5rem;
@@ -29,30 +30,103 @@ h2,h3{
     text-align: center;
     padding: 1rem;
 }
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+td {
+    padding: 12px;
+}
+nav{
+    width: 100%;
+    height: 60px;
+    background-color: #373737;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+nav p {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.ri-mail-line{
+    padding: 1rem;
+    color: #ffffff;
+
+}
+.ri-mail-line:hover{
+    color: #332f2f;
+    background: #dbe1e5;
+    border-radius: 50%;
+}
+
 
 table{
     width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
+    /* border-collapse: collapse; */
+    margin-bottom: 2rem;
+    border: 1px solid #000000;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+th{
+    background-color: #444444;
+    color: white;
 }
 
 th, td{
-    padding: 0.5rem;
+    padding: 2rem 0 2rem 0;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
+}
+tr:nth-child(odd){
+    background-color: #d8d8d8;
 }
 
 button{
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
-    background-color: #333;
+    background-color: #373737;
     color: #fff;
     cursor: pointer;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+#see_resource{
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color:transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#see_resource:hover{
+    background-color: #555;
+    transition: all .1s ease-in-out;
 }
 
 button:hover{
     background-color: #555;
+    transition: all .2s ease-in-out;
 }
 
 button:disabled{
@@ -73,7 +147,8 @@ input[type="checkbox"]{
 
 .resources{
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns:  repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
 
 }
 
@@ -89,6 +164,7 @@ input[type="checkbox"]{
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    width: 70%;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
@@ -106,14 +182,42 @@ input[type="checkbox"]{
     margin-bottom: 1rem;
 }
 
+#doc_file{
+    padding: 1.4rem;
+}
+
 label{
     margin-bottom: 0.5rem;
 }
 
-#see_resource{
+.show_att{
+    display: none;
+}
+.mark_att{
+    display: none;
+}
+
+#show_att_btn,#mark_att_btn{
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1.2rem;    
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.att_btn{
+    display: flex;
+}
+
+
+@media screen and (max-width: 768px){
+    table{
+        width: 100%;
+    }
+    td{
+        padding: 1rem;
+    }
+    
 }

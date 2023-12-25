@@ -1,5 +1,5 @@
 import express, { response } from 'express';
-import { registerUser, authUser, showStudents, getAttendance, updateAttendance, showDetails, updateDetails, showDetailsAdmin, uploadVideoURL, getVideoURL, getVideoTitle } from './src/db2.js';
+import { registerUser, authUser, showStudents, getAttendance, updateAttendance, showDetails, updateDetailsAdmin, showDetailsAdmin, uploadVideoURL, getVideoURL, updateDetails } from './src/db2.js';
 import { putObject, getObjectURL, getAllObjects } from './src/aws.js';
 import youtubeThumbnail from 'youtube-thumbnail';
 import getTitle from 'youtube-title'
@@ -34,7 +34,6 @@ app.get('/', (req, res) => {
 
 app.get('/admin', async (req, res, next) => {
     const response = await showStudents();
-
     res.render("admin", { students: response })
 
 
@@ -130,7 +129,12 @@ app.get("/details", async (req, res) => {
 })
 
 app.post("/details", async (req, res) => {
-    updateDetails(req.headers.id, req.body);
+    if (req.headers.auth === "Admin") {
+        updateDetailsAdmin(req.headers.id, req.body);
+    }
+    else {
+        updateDetails(req.headers.email, req.body);
+    }
     res.sendStatus(200)
 })
 
@@ -174,6 +178,19 @@ app.get('/resources', getAllObjects, async (req, res) => {
 
 })
 
+app.get('*/notifications', (req, res) => {
+    res.render('notifications')
+})
+
+app.get('notifications', (req, res) => {
+    res.render('notifications')
+})
+
+app.get('/*?*', (req, res) => {
+    res.render('404');
+})
+
+
 app.listen(PORT, () => {
-    console.log(`Server running on port http:localhost:${PORT}`);
+    console.log(`Server running on port http://localhost:${PORT}`);
 })

@@ -24,61 +24,101 @@
         border-radius: 50%;
     }
 
-    form {
+    #upload-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    #user_img {
+        border: .5px solid black;
+        width: 80px;
+        height: 80px;
+    }
+
+    .form-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        margin-top: 4rem;
-    }
-
-    .details-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: #ccc;
-        margin: auto;
-        width: 40vw;
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    .details-form div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin: 1rem;
-    }
-
-    .details-form div input {
-        margin-left: 1rem;
-        justify-content: center;
-    }
-
-    .fixed_detail {
-        width: 200px;
-    }
-
-    .details-form input {
-        width: 200px;
-        padding: 1rem 2rem 1rem 2rem;
-        border: none;
-        border-bottom: 1px solid #ccc;
+        align-items: self-end;
+        width: 40%;
+        margin: 0 auto;
+        background: #f2f1f1;
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 12px;
     }
 
     .btns {
-        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        margin: 0 auto;
+        margin-top: .4rem;
     }
 
-    #edit_details_btn,
-    #cancel_details_btn,
-    #save_details_btn {
-        padding: .8rem;
+    button {
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
         border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        background-color: #1b2025;
+    }
+
+    button:hover {
+        background-color: #353a3e;
+    }
+
+    .input_box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 30%;
+        margin: 0.5rem;
+        gap: 2rem;
+    }
+
+    label {
+        font-weight: 600;
+    }
+
+    input {
+        padding: 0.5rem 1rem;
+        outline: none;
+        border: none;
+        background: white;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    input:disabled {
+        outline: none;
+        background-color: #e8e7e7;
+    }
+
+    @media screen and (max-width: 768px) {
+        .input_box {
+            width: 80%;
+        }
+
+        .btn_container {
+            width: 80%;
+        }
+
+        .form-container {
+            margin-right: 13rem;
+            width: 90%;
+        }
+
     }
 </style>
 
@@ -92,63 +132,63 @@
         <button id="submit">Upload</button>
     </form>
     <% for (let i of details) { %>
-        <div class="details-form">
-            <div>
+        <div class="form-container">
+            <div class="btn_container">
                 <label for="name">Name:</label>
                 <input class="fixed_detail" type="text" disabled value="<%= i.name %>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="email">Email:</label>
                 <input class="fixed_detail" type="text" disabled value="<%= i.email %>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="section">Section:</label>
                 <input class="fixed_detail" type="text" disabled value="<%= i.section %>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="section">Course:</label>
                 <input class="fixed_detail" type="text" disabled value="<%= i.Course %>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="dob">DOB:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.DOB %>">
+                <input class="detail_input" type="text" disabled value="<%= i.DOB %>" placeholder="YYYY-MM-DD">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="year">Year:</label>
                 <input class="fixed_detail" type="text" disabled value="<%= i.year %>">
             </div>
 
 
-            <div>
+            <div class="btn_container">
                 <label for="phone">Phone:</label>
                 <input class="detail_input" type="text" disabled value="<%= i.phone%>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="gender">Gender: </label>
                 <input class="detail_input" type="text" disabled value="<%= i.gender %>">
 
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="father_name">Father's name:</label>
                 <input class="detail_input" type="text" disabled value="<%= i.father_name %>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="mother_name">Mother's name:</label>
                 <input class="detail_input" type="text" disabled value="<%= i.mother_name %>">
             </div>
-            <div>
+            <div class="btn_container">
                 <label for="address">Address:</label>
                 <input class="detail_input" type="text" disabled value="<%= i.address %>">
             </div>
 
-            <div class="btns">
-                <button id="edit_details_btn">Edit</button>
-                <button id="cancel_details_btn">Cancel</button>
-                <button id="save_details_btn">Save</button>
-            </div>
 
         </div>
 
+        <div class="btns">
+            <button id="edit_details_btn">Edit</button>
+            <button id="cancel_details_btn">Cancel</button>
+            <button id="save_details_btn">Save</button>
+        </div>
 
         <% } %>
 

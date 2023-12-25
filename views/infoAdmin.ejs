@@ -22,95 +22,152 @@
     .form-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        background-color: #ccc;
-        margin: auto;
-        width: 40vw;
-        margin-top: 3rem;
-        padding: 4rem;
+        align-items: center;
+        width: 80%;
+        margin: 0 auto;
+        background: #f2f1f1;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .btn_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        margin: 0 auto;
+        margin-top: .4rem;
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        background-color: #1b2025;
+    }
+
+    button:hover {
+        background-color: #353a3e;
+    }
+
+    .input_box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 30%;
+        margin: 0.5rem;
+        gap: 2rem;
+    }
+
+    label {
+        font-weight: 600;
     }
 
     input {
-        margin-left: 1rem;
-        justify-content: center;
+        padding: 0.5rem 1rem;
+        outline: none;
+        border: none;
+        background: white;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
     }
 
-    input,
-    label {
-        margin: 6px;
-        padding: .8rem;
-        font-weight: bold;
+    input:disabled {
+        outline: none;
+        background-color: #e8e7e7;
     }
 
-    label {
-        justify-self: start;
+    @media screen and (max-width: 768px) {
+        .input_box {
+            width: 80%;
+        }
+
+        .btn_container {
+            width: 80%;
+        }
+
+        .form-container {
+            margin-left: 6rem;
+        }
+
     }
 </style>
 
 
+
 <body>
+    <center>
 
-    <% for (let i of details) { %>
-        <div class="form-container">
-            <div>
-                <label for="name">Name:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.name %>">
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.email %>">
-            </div>
-            <div>
-                <label for="section">Section:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.section %>">
-            </div>
-            <div>
-                <label for="section">Course:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.Course %>">
-            </div>
-            <div>
-                <label for="dob">DOB:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.DOB %>">
-            </div>
-            <div>
-                <label for="year">Year:</label>
-                <input class="fixed_detail" type="text" disabled value="<%= i.year %>">
-            </div>
-
-
-            <div>
-                <label for="phone">Phone:</label>
-                <input class="detail_input" type="text" disabled value="<%= i.phone%>">
-            </div>
-            <div>
-                <label for="gender">Gender: </label>
-                <input class="detail_input" type="text" disabled value="<%= i.gender %>">
-
-            </div>
-            <div>
-                <label for="father_name">Father's name:</label>
-                <input class="detail_input" type="text" disabled value="<%= i.father_name %>">
-            </div>
-            <div>
-                <label for="mother_name">Mother's name:</label>
-                <input class="detail_input" type="text" disabled value="<%= i.mother_name %>">
-            </div>
-            <div>
-                <label for="address">Address:</label>
-                <input class="detail_input" type="text" disabled value="<%= i.address %>">
-            </div>
-
-            <button id="edit_details_btn">Edit</button>
-            <button id="cancel_details_btn">Cancel</button>
-            <button id="save_details_btn">Save</button>
-
-        </div>
+        <% for (let i of details) { %>
+            <div class="form-container">
+                <div class="input_box">
+                    <label for="name">Name:</label>
+                    <input class="fixed_detail" type="text" disabled value="<%= i.name %>">
+                </div>
+                <div class="input_box">
+                    <label for="email">Email:</label>
+                    <input class="fixed_detail" type="text" disabled value="<%= i.email %>">
+                </div>
+                <div class="input_box">
+                    <label for="section">Section:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.section %>">
+                </div>
+                <div class="input_box">
+                    <label for="section">Course:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.Course %>">
+                </div>
+                <div class="input_box">
+                    <label for="dob">DOB:</label>
+                    <input class="fixed_detail" type="text" disabled value="<%= i.DOB %>">
+                </div>
+                <div class="input_box">
+                    <label for="year">Year:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.year %>">
+                </div>
 
 
-        <% } %>
+                <div class="input_box">
+                    <label for="phone">Phone:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.phone%>">
+                </div>
+                <div class="input_box">
+                    <label for="gender">Gender: </label>
+                    <input class="detail_input" type="text" disabled value="<%= i.gender %>">
 
-            <script id="stud" src="/admin.js"></script>
+                </div>
+                <div class="input_box">
+                    <label for="father_name">Father's name:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.father_name %>">
+                </div>
+                <div class="input_box">
+                    <label for="mother_name">Mother's name:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.mother_name %>">
+                </div>
+                <div class="input_box">
+                    <label for="address">Address:</label>
+                    <input class="detail_input" type="text" disabled value="<%= i.address %>">
+                </div>
+
+            </div>
+
+            <div class="btn_container">
+                <button id="edit_details_btn">Edit</button>
+                <button id="cancel_details_btn">Cancel</button>
+                <button id="save_details_btn">Save</button>
+            </div>
+
+
+
+            <% } %>
+    </center>
+    <script id="stud" src="/admin.js"></script>
 </body>
 
 </html>

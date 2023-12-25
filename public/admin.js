@@ -2,6 +2,8 @@ if (localStorage.getItem('role') !== "Admin") {
     document.body.innerHTML = `<p>Not authorized</p>`
 }
 
+
+
 const url = "/admin"
 
 let attendance = []
@@ -13,6 +15,27 @@ const reset_btn = document.getElementById('reset-btn');
 for (let i = 0; i < checkbox.length; i++) {
     attendance.push(checkbox[i].checked);
 }
+
+if (window.location.pathname == '/admin') {
+    const notification_btn = document.querySelector('.ri-mail-line');
+    notification_btn.addEventListener('click', () => {
+        window.location.href += "/notifications"
+    })
+
+    const att_container = document.querySelector('.show_att')
+    const show_att_btn = document.getElementById('show_att_btn')
+    show_att_btn.addEventListener('click', () => {
+        att_container.classList.toggle('show_att')
+        show_att_btn.innerHTML = show_att_btn.innerHTML == "Hide Attendance" ? "Show Attendance" : "Hide Attendance"
+    })
+
+    const mark_att_container = document.querySelector('.mark_att')
+    const mark_att_btn = document.getElementById('mark_att_btn')
+    mark_att_btn.addEventListener('click', () => {
+        mark_att_container.classList.toggle('mark_att')
+    })
+}
+
 if (!window.location.pathname.includes('/admin/details')) {
     submit_btn.addEventListener('click', postData)
     save_btn.addEventListener('click', () => {
@@ -86,6 +109,7 @@ if (location.pathname.includes('/admin/details')) {
             body: JSON.stringify(new_detail),
             headers: {
                 "Content-Type": "application/json",
+                "auth": "Admin",
                 "id": window.location.pathname.split("/")[3]
             }
         }).then(() => {

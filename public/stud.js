@@ -2,10 +2,21 @@ const url = new URL(window.location.href);
 const ls = JSON.parse(localStorage.getItem("role"))
 const email = url.searchParams.get("email")
 const localImageURL = localStorage.getItem("localImageURL")
-const detail = document.getElementById("details")
+const detail = document.querySelector(".details")
+const noDisplayImageTemplate = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 const image = document.getElementById('user_img');
 
 let imageState = false;
+
+
+
+
+if (window.location.pathname == '/student') {
+    const notification_btn = document.querySelector('.ri-mail-line');
+    notification_btn.addEventListener('click', () => {
+        window.location.href = "/notifications"
+    })
+}
 
 if (url.searchParams.get("email") !== ls.email || ls.role !== "Student") {
     document.body.innerHTML = `<p>Not authorized</p>`
@@ -23,7 +34,9 @@ if (url.pathname !== '/details') {
         image.src = localImageURL;
         imageState = true;
     }
-
+    else {
+        image.src = noDisplayImageTemplate
+    }
 }
 
 if (window.location.pathname == '/details') {

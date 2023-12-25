@@ -36,8 +36,9 @@ export async function registerUser(data) {
         else if (data.role === "Student") {
             const email = await db.promise().query("select email,pswd from students where email=?", [data.email]);
             if (email[0].length == 0) {
-                await db.promise().query("insert into students values(?,?,?,?,?,?,?,?,?,?)", [0, data.name, data.email, data.password, 0, null, null, null, null, null]);
-                await db.promise().query("insert into subject_att values(?,?,?,?,?,?)", [0, 0, 0, 0, 0, 0]);
+                await db.promise().query("insert into students values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [0, data.name, data.email, data.password, 0, null, null, null, null, null, null, null, null, null])
+                    .then(
+                        await db.promise().query("insert into subject_att values(?,?,?,?,?,?)", [0, 0, 0, 0, 0, 0]));
                 return 201
             }
             else
@@ -114,7 +115,7 @@ async function updateAttendancePercenrage() {
     for (let i = 0; i < noOfAttentedClasses[0].length; i++) {
         totalAttentedClasses = noOfAttentedClasses[0][i].ML + noOfAttentedClasses[0][i].OOSD + noOfAttentedClasses[0][i].DBMS + noOfAttentedClasses[0][i].DAA + noOfAttentedClasses[0][i].WT
 
-        attendancePercentage = ((noOfClasses.total_classes - totalAttentedClasses) / noOfClasses.total_classes) * 100
+        attendancePercentage = ((totalAttentedClasses) / noOfClasses.total_classes) * 100
 
         if (i == noOfAttentedClasses[0].length)
             await db.promise().query(`UPDATE students set attendance=${attendancePercentage} WHERE SID = ?`, [i]);
@@ -128,8 +129,12 @@ export async function showDetails(email) {
     return res[0];
 
 }
-export async function updateDetails(id, body) {
-    await db.promise().query(`update students set phone=?,gender=?,father_name=?,mother_name=?,address=? where sid=?`, [body.detail[0], body.detail[1], body.detail[2], body.detail[3], body.detail[4], id])
+export async function updateDetailsAdmin(id, body) {
+    await db.promise().query(`update students set section=?, Course=?, year=?,phone=?,gender=?,father_name=?,mother_name=?,address=? where sid=?`, [body.detail[0], body.detail[1], body.detail[2], body.detail[3], body.detail[4], body.detail[5], body.detail[6], body.detail[7], id])
+
+}
+export async function updateDetails(email, body) {
+    await db.promise().query(`update students set DOB=?,phone=?,gender=?,father_name=?,mother_name=?,address=? where email=?`, [body.detail[0], body.detail[1], body.detail[2], body.detail[3], body.detail[4], body.detail[5], email])
 
 }
 

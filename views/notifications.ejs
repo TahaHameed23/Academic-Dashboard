@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2 id="role">
+        No new notifications
+    </h2>
+</body>
+
+<script>
+    if (localStorage.getItem('role') === 'Admin') {
+        document.getElementById('role').textContent = 'No notifications added yet'
+    }
+</script>
+
+</html>

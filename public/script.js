@@ -60,9 +60,9 @@ async function postData(url, data) {
                 "email": data.email
             }
             localStorage.setItem("email", JSON.stringify(auth));
-            const url = new URL(window.location.host + "/student");
-            url.searchParams.set("email", data.email);
-            window.location.href = url.href;
+            const url = new URL(window.location.protocol + window.location.host + "/student");
+            url.searchParams.set("email", decodeURIComponent(data.email));
+            window.location.href = url;
         }
         else if (res.status === 203) {
             window.location.href = "/admin";
@@ -72,6 +72,9 @@ async function postData(url, data) {
 
         else if (res.status === 400) {
             document.getElementById('error-signup').innerHTML = 'User already exists'
+            setTimeout(() => {
+                document.getElementById('error-signup').innerHTML = '';
+            }, 4000);
         }
     })
 
@@ -113,6 +116,9 @@ async function authData(url, data) {
 
         else if (res.status === 405) {
             document.getElementById('error').innerHTML = 'Wrong email or password'
+            document.getElementById('login-password').addEventListener('input', () => {
+                document.getElementById('error').innerHTML = '';
+            })
         }
     })
     // parses JSON response into native JavaScript objects

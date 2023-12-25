@@ -5,3 +5,5 @@ db.js
 .vscode
 *.pem
 /uploads
+/dist
+.zip

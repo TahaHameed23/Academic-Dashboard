@@ -6,144 +6,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/styles/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
-<style>
-    th,
-    td {
-        padding: 10px;
-        text-align: center;
-    }
-
-    input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-    }
-
-    td {
-        padding: 12px;
-    }
-</style>
 
 <body>
-    <h1>Admin</h1>
-
-    <h2>Mark attendance: </h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>ML</th>
-            <th>OOSD</th>
-            <th>DBMS</th>
-            <th>DAA</th>
-            <th>WT</th>
-        </tr>
-
-
-        <% for(let student of students[0]) { %>
-            <tr>
-
-                <td class="sid">
-                    <%= student.sid %>
-
-                </td>
-                <td>
-                    <%= student.name %>
-                </td>
-
-                <td>
-                    <input class="is_present" name="ml" type="checkbox">
-                </td>
-                <td>
-                    <input class="is_present" name="oosd" type="checkbox">
-                </td>
-                <td>
-                    <input class="is_present" name="dbms" type="checkbox">
-                </td>
-                <td>
-                    <input class="is_present" name="daa" type="checkbox">
-                </td>
-                <td>
-                    <input class="is_present" name="wt" type="checkbox">
-                </td>
-            </tr>
-            <% } %>
-
-    </table>
-
-    <div class="btn_container">
-        <button onclick="window.location.reload(true)">Update</button>
-        <button type="submit" id="submit-btn" disabled="true">Submit</button>
-        <button type="" id="save-btn">Save</button>
-        <button type="reset" id="reset-btn">Reset</button>
+    <nav>
+        <p>Admin</p>
+        <button id="see_resource">Resources</button>
+        <i class="ri-mail-line"></i>
+    </nav>
+    <div class="att_btn">
+        <button id="show_att_btn">Show attendance</button>
+        <button id="mark_att_btn">Mark attendance</button>
     </div>
 
+    <section class="mark_att">
+        <h2><u>Mark attendance: </u></h2>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ML</th>
+                <th>OOSD</th>
+                <th>DBMS</th>
+                <th>DAA</th>
+                <th>WT</th>
+            </tr>
+
+
+            <% for(let student of students[0]) { %>
+                <tr>
+
+                    <td class="sid">
+                        <%= student.sid %>
+
+                    </td>
+                    <td>
+                        <%= student.name %>
+                    </td>
+
+                    <td>
+                        <input class="is_present" name="ml" type="checkbox">
+                    </td>
+                    <td>
+                        <input class="is_present" name="oosd" type="checkbox">
+                    </td>
+                    <td>
+                        <input class="is_present" name="dbms" type="checkbox">
+                    </td>
+                    <td>
+                        <input class="is_present" name="daa" type="checkbox">
+                    </td>
+                    <td>
+                        <input class="is_present" name="wt" type="checkbox">
+                    </td>
+                </tr>
+                <% } %>
+
+        </table>
+
+        <div class="btn_container">
+            <button onclick="window.location.reload(true)">Update</button>
+            <button type="submit" id="submit-btn" disabled="true">Submit</button>
+            <button type="" id="save-btn">Save</button>
+            <button type="reset" id="reset-btn">Reset</button>
+        </div>
+    </section>
     <br><br><br><br>
 
-    <h2>Attendance</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>Attendance</th>
-            <th>ML</th>
-            <th>OOSD</th>
-            <th>DBMS</th>
-            <th>DAA</th>
-            <th>WT</th>
-            <% for(let att of students[1]) { %>
-        </tr>
 
-        <tr>
-            <td>
-                <%= att.sid %>
+    <section class="show_att">
+        <h2><u>Attendance</u></h2>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>Attendance</th>
+                <th>ML</th>
+                <th>OOSD</th>
+                <th>DBMS</th>
+                <th>DAA</th>
+                <th>WT</th>
+                <% for(let att of students[1]) { %>
+            </tr>
 
-            </td>
-            <td>
-                <a href=admin/details/<%=att.sid %> id=<%=att.sid %> ><%= att.name %></a>
-            </td>
+            <tr>
+                <td>
+                    <%= att.sid %>
 
-            <!-- <% if(att.attendance>100) {%>
+                </td>
+                <td>
+                    <a href=admin/details/<%=att.sid %> id=<%=att.sid %> ><%= att.name %></a>
+                </td>
+
+                <!-- <% if(att.attendance>100) {%>
                 <td>
                     100
                 </td>
                 <% } else { %> -->
-            <!-- <% } %> -->
-            <td>
-                <%= att.attendance %>
-            </td>
+                <!-- <% } %> -->
+                <td>
+                    <%= att.attendance %>
+                </td>
 
-            <td>
-                <%= att.ML %>
-            </td>
-            <td>
-                <%= att.OOSD %>
-            </td>
-            <td>
-                <%= att.DBMS %>
-            </td>
-            <td>
-                <%= att.DAA %>
-            </td>
-            <td>
-                <%= att.WT %>
-            </td>
+                <td>
+                    <%= att.ML %>
+                </td>
+                <td>
+                    <%= att.OOSD %>
+                </td>
+                <td>
+                    <%= att.DBMS %>
+                </td>
+                <td>
+                    <%= att.DAA %>
+                </td>
+                <td>
+                    <%= att.WT %>
+                </td>
 
 
-            <% } %>
-        </tr>
-    </table>
-
+                <% } %>
+            </tr>
+        </table>
+    </section>
     <section>
-        <h2>Resources</h2>
+        <h2><u>Resources</u></h2>
         <div class="resources">
 
 
             <form id="upload-form" enctype="multipart/form-data">
-
                 <h3>Files</h3>
                 <input type="file" id="doc_file" name="resources">
-                <input type="text" id="doc_name" placeholder="Enter name of the resource">
                 <span id="status"></span>
                 <button type="submit" id="doc_files_btn">Upload</button>
             </form>
@@ -161,7 +155,7 @@
 
 
         </div>
-        <button id="see_resource">See uploaded resources</button>
+
     </section>
 
     <script src="/admin.js"></script>

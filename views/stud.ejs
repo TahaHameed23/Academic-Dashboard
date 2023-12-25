@@ -13,20 +13,16 @@
 
 
     <nav>
-
-        <!-- <img id="user_img" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" -->
-        <!-- alt=""> -->
-
-        <button class="resources" onclick="window.location.href='/resources'"><i class="ri-file-copy-2-line"></i>
+        <button class="resources r-hv" onclick="window.location.href='/resources'"><i class="ri-file-copy-2-line"></i>
             Resources</button>
-        <button id="details"><i class="ri-account-circle-line"></i> Details</button>
-        <i class="ri-mail-line"></i>
+        <button class="details d-hv"><i class="ri-account-circle-line"></i> Details</button>
+        <i class="ri-mail-line n-hv"></i>
     </nav>
     </form>
 
 
 
-    <div class="card">
+    <div class="card-top">
 
         <img src="" alt="" id="user_img" height="32">
         <h2>
@@ -34,7 +30,7 @@
         </h2>
 
 
-        <h3>Percentage:
+        <h3 class="prct">Percentage:
             <% if(attendance[0][0].attendance>100) { %>
                 <span>100</span>
                 <% } else { %>
