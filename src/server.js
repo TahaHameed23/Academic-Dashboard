@@ -9,8 +9,8 @@ import {
     uploadVideoURL,
     getVideoURL,
     updateDetails,
-} from "./src/db.js";
-import { putObject, getObjectURL, getAllObjects } from "./src/aws.js";
+} from "./_db.js";
+import { putObject, getObjectURL, getAllObjects } from "./aws.js";
 import youtubeThumbnail from "youtube-thumbnail";
 import getTitle from "youtube-title";
 import path from "node:path";
@@ -18,7 +18,7 @@ import { fileURLToPath } from "url";
 import morgan from "morgan";
 import multer from "multer";
 import dotenv from "dotenv";
-import { auth } from "./modules/auth.js";
+import { auth } from "../modules/auth.js";
 dotenv.config();
 
 const storage = multer.memoryStorage();
@@ -29,7 +29,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(morgan("dev"));
 app.use(express.static("public"));
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

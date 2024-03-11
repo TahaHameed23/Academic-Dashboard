@@ -1,4 +1,4 @@
-import { registerUser, authUser } from "../src/db.js";
+import { registerUser, authUser } from "../src/_db.js";
 
 export const auth = async (req, res, next) => {
     try {
