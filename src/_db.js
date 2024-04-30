@@ -31,7 +31,8 @@ export async function registerUser(data) {
                 //checks if the user already exixts.
                 await db
                     .promise()
-                    .query("insert into admin values(?,?,?)", [
+                    .query("insert into admin values(?,?,?,?)", [
+                        0,
                         data.name,
                         data.email,
                         data.password,
