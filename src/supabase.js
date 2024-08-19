@@ -4,7 +4,7 @@ dotenv.config();
 
 // Create Supabase client
 const supabase = createClient(
-    "https://debbxcowbupwgkbxwpzx.supabase.co",
+    process.env.SUPABASE_PROJECT_URL,
     process.env.SUPABASE_PROJECT_API,
     {
         autoRefreshToken: true,
