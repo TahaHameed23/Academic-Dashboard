@@ -10,7 +10,7 @@ import {
     getVideoURL,
     updateDetails,
 } from "./_db.js";
-import { putObject, getObjectURL, getAllObjects } from "./aws.js";
+import { uploadFile, getFile, listFiles } from "./supabase.js";
 import youtubeThumbnail from "youtube-thumbnail";
 import getTitle from "youtube-title";
 import path from "node:path";
@@ -46,13 +46,15 @@ app.get("/admin", async (req, res, next) => {
 app.post("/admin", upload.single("files"), async (req, res) => {
     if (req.headers.auth === "admin") {
         updateAttendance(req.body);
+        res.sendStatus(200);
     }
     if (req.headers.resources === "true") {
         try {
-            await putObject(
-                `resources/${req.file.originalname}`,
+            await uploadFile(
+                req.file.originalname,
                 req.file.buffer,
-                req.file.mimetype
+                req.file.mimetype,
+                true
             );
             return res.sendStatus(200);
         } catch (e) {
@@ -64,24 +66,23 @@ app.post("/admin", upload.single("files"), async (req, res) => {
             res.sendStatus(200);
         });
     }
-    // const response = await showStudents();
 });
 
 app.post("/student/", upload.single("files"), async (req, res) => {
     try {
-        await putObject(
-            `user-upload/image_${req.headers.email.split(".")[0]}.${
-                req.file.mimetype.split("/")[1]
+        await uploadFile(
+            `image_${req.headers.email.split(".")[0]}
             }`,
             req.file.buffer,
             req.file.mimetype
         );
         if (req.headers.haslocalimage !== "true") {
-            const imageURL = await getObjectURL(
-                `user-upload/image_${req.headers.email.split(".")[0]}.${
+            const imageURL = await getFile(
+                `image_${req.headers.email.split(".")[0]}.${
                     req.file.mimetype.split("/")[1]
                 }`
             );
+            console.log(imageURL);
             res.send(JSON.stringify({ imageURL: imageURL }));
         }
     } catch (e) {
@@ -117,17 +118,19 @@ app.get("/admin/details/:id", async (req, res) => {
     res.render("infoAdmin", { details: response });
 });
 
-app.get("/resources", getAllObjects, async (req, res) => {
+app.get("/resources", listFiles, async (req, res) => {
     const resources_name = {};
-    for (let i = 1; i < req.objs.length; i++) {
-        const value = req.objs[i].toString();
-        const response = await getObjectURL(value);
-        const name = req.objs[i].split("/")[1];
+    for (let i = 0; i < req.objs.length; i++) {
+        const value = req.objs[i].name.toString();
+        const response = await getFile(value, true);
+        const name = req.objs[i].name.toString();
         resources_name[name] = response;
     }
-    const res_name = Object.keys(resources_name);
-    const res_url = Object.values(resources_name);
 
+    const res_url = Object.values(resources_name);
+    console.log(resources_name[0]);
+
+    //TODO: add video_links table
     const thumbnail = [];
     const video_link = [];
     const video_title = [];
@@ -153,7 +156,7 @@ app.get("/resources", getAllObjects, async (req, res) => {
     );
 
     res.render("resources", {
-        resources: res_name,
+        resources: resources_name,
         url: res_url,
         video_link: video_link,
         thumbnail: thumbnail,

@@ -108,13 +108,13 @@
 
     <h2 style="text-align: center; margin: 2rem 0 2rem 0 ;">Notes</h2>
     <div class="card-container">
-        <% for(let res=0; res<url.length; res++) { %>
+        <% for(const [key, value] of Object.entries(resources)) { %>
             <div class="card">
-                <a href=<%=url[res] %> >
+                <a href=<%=value %> >
                     <div>
                         <i class="ri-file-text-line"></i>
                         <h4>
-                            <%= resources[res] %>
+                            <%= key %>
                         </h4>
                     </div>
                 </a>
